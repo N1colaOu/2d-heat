@@ -24,7 +24,7 @@ def visualize(plates):
     for i in range(nt):
         im = ax.imshow(plates[i], animated=True)
         ims.append([im])
-    ani = anim.ArtistAnimation(fig, ims, interval=50, blit=True,
+    ani = anim.ArtistAnimation(fig, ims, interval=75, blit=True,
                                 repeat_delay=1000)
     return ani
 data = read_plate("/home/nic/GithubRepos/2d-heat/build/data.txt")

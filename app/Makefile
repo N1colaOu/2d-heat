@@ -3,6 +3,6 @@
 
 all: ../build/main.exe
 
-../build/main.exe: ../src/main.cpp
-	/usr/bin/g++ ../src/main.cpp -I /usr/include/eigen3 -o ../build/main.exe
+ex_0: ../src/ex_0.cpp
+	/usr/bin/g++ ../src/ex_0.cpp -I /usr/include/eigen3 -o ../build/ex_0.exe
 
