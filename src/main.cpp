@@ -60,7 +60,7 @@ int main(int argc, char* argv[]){
 
     const int nx = 5;
     const int ny = 5;
-    const int nt = 15<;
+    const int nt = 15;
     const double t_end = 1.00;
     const double Lx = 1.00; //m
     const double Ly = 1.00; //m
