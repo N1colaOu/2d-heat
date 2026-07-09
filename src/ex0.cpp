@@ -45,8 +45,8 @@ int main(int argc, char* argv[]){
     solver.compute(system);
     //print_plate(plate, nx, ny);
 
-    std::fstream to_write;
-    to_write.open("/home/nic/GithubRepos/2d-heat/build/data.txt");
+    std::ofstream to_write;
+    to_write.open("/home/nic/GithubRepos/2d-heat/build/data0.txt", std::ofstream::out | std::ofstream::trunc);
     to_write << nx << " " << ny << " " << nt << '\n';
 
 

@@ -1,32 +1,35 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.animation as anim
+import matplotlib.animation as animation
 
 def read_plate(name):
+    with open(name, 'r') as f:
+        nx, ny, nt = map(int, f.readline().split())
+        data = np.loadtxt(f, dtype=np.float64)   # more robust than fromstring
+    return data.reshape(nt, ny, nx)
 
-    file = open(name, 'r')
+def visualize(plates, step=1, interval=50):
+    nt, ny, nx = plates.shape
+    frames = plates[::step]                    # optional time downsampling
 
-    first_line = file.readline()
-    nx, ny, nt = map(int, first_line.split())
-
-    rest = file.read()
-    all_values = np.fromstring(rest, sep=' ', dtype=np.float64)
-
-    plates = all_values.reshape((nt, ny, nx))
-
-    file.close()
-    return plates;
-
-def visualize(plates):
-    nt = np.size(plates, 0)
     fig, ax = plt.subplots()
-    ims = []
-    for i in range(nt):
-        im = ax.imshow(plates[i], animated=True)
-        ims.append([im])
-    ani = anim.ArtistAnimation(fig, ims, interval=75, blit=True,
-                                repeat_delay=1000)
+    # use global min/max for consistent colormap
+    vmin, vmax = plates.min(), plates.max()
+    im = ax.imshow(frames[0], vmin=vmin, vmax=vmax, animated=True)
+
+    def update(frame):
+        im.set_data(frame)
+        return [im]   # return the artist for blitting (optional)
+
+    ani = animation.FuncAnimation(fig, update, frames=frames,
+                                  interval=interval, blit=True,
+                                  repeat_delay=1000)
     return ani
-data = read_plate("/home/nic/GithubRepos/2d-heat/build/data.txt")
-animation = visualize(data)
-animation.save("animation.gif")
+
+i = int(input("Which Example to load? (0 - 1) "))
+if i < 0 or i > 1:
+    print("Invalid Input!")
+else:
+    data = read_plate(f"/home/nic/GithubRepos/2d-heat/build/data{i}.txt")
+    ani = visualize(data, step=1, interval=50)
+    ani.save(f"animation{i}.gif", dpi=80, writer='pillow')  # lower dpi for smaller file

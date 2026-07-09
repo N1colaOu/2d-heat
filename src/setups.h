@@ -21,7 +21,7 @@ void print_plate(const VectorXd& plate, int nx, int ny){
     std::cout << '\n';
 }
 
-void write_plate(const VectorXd& plate, std::fstream& file, int nx, int ny){
+void write_plate(const VectorXd& plate, std::ofstream& file, int nx, int ny){
     for (size_t i = 0; i < nx; i++)
     {
         for (size_t j = 0; j < ny; j++)
@@ -31,10 +31,6 @@ void write_plate(const VectorXd& plate, std::fstream& file, int nx, int ny){
         file << '\n';
     }
     file << '\n';
-}
-
-void set_plate_borders(VectorXd& plate, float l, float r, float u, float d){
-
 }
 
 void build_system_0_0_0_0(SparseMatrix<double>& A, double ht, double hx, double hy, double a, int N){
@@ -82,14 +78,15 @@ void build_system_L_U_R_D(SparseMatrix<double>& A, double sx, double sy, int nx,
         counter++;
         for (size_t j = 1; j < nx-1; j++) // the inner stuff, starts from 1 bc RcompBord and ends in -1 bc of LcompBord
         {
-            triplets.push_back(Triplet<double>(counter, counter - 3, -sy));
+            triplets.push_back(Triplet<double>(counter, counter - nx, -sy));
             triplets.push_back(Triplet<double>(counter, counter - 1, -sx));
             triplets.push_back(Triplet<double>(counter, counter, 1 + 2*sx + 2*sy));
             triplets.push_back(Triplet<double>(counter, counter + 1, -sx));
-            triplets.push_back(Triplet<double>(counter, counter + 3, -sy));
+            triplets.push_back(Triplet<double>(counter, counter + nx, -sy));
             counter++;
         }
-        triplets.push_back(Triplet<double>(i, i, 1)); // L component border
+        triplets.push_back(Triplet<double>(counter, counter, 1)); // L component border
+        counter++;
     }
 
     for (size_t i = (ny-1)*nx; i < N; i++) // D border
@@ -99,4 +96,20 @@ void build_system_L_U_R_D(SparseMatrix<double>& A, double sx, double sy, int nx,
 
     A.setFromTriplets(triplets.begin(), triplets.end());
     A.makeCompressed();
+}
+
+void set_plate_borders(VectorXd& plate, int nx, int ny, double l, double u, double r, double d){
+    for (size_t i = 0; i < nx; i++)
+    {
+        plate(i) = u;
+    }
+    for (size_t i = 1; i < ny-1; i++)
+    {
+        plate(i*nx) = l;
+        plate((i+1)*nx - 1) = r;
+    }
+    for (size_t i = 0; i < nx; i++)
+    {
+        plate((ny-1)*nx + i) = d;
+    }
 }
