@@ -20,9 +20,23 @@ This repository computes and visualizes 2D heat diffusion on a rectangular plate
 
 ## How to use
 
-1. Build one of the C++ examples (`ex0.cpp` or `ex1.cpp`) with Eigen and UMFPACK support.
-2. Run the binary to write `./build/data0.txt` or `./build/data1.txt`.
-3. Run `src/display.py` to load the data and produce `animation1.gif`.
+1. Build the C++ examples with the provided `Makefile`:
+   ```bash
+   make
+   ```
+   This produces `./build/ex0.exe` and `./build/ex1.exe`.
+2. Generate data using one of the binaries or the helper script:
+   - Run `./build/ex0.exe` to write `./build/data0.txt`.
+   - Run `./build/ex1.exe` to write `./build/data1.txt`.
+   - Or use `./app/gen_data.sh` to generate both data files from `app/input.txt`.
+3. Create the animation with the Python visualizer:
+   ```bash
+   bash ./app/gen_anim.sh
+   ```
+   The script reads the selected `build/data*.txt` file and saves the result as `animation0.gif` or `animation1.gif`.
+4. View the generated animation:
+   - The main output file is `./build/animation1.gif`.
+   - Use any GIF viewer or browser to inspect the heat diffusion sequence.
 
 ## Output
 
