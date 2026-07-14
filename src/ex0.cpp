@@ -10,43 +10,54 @@
 using namespace Eigen;
 
 
-int main(int argc, char* argv[]){
-    //assert(argc == 5);
-    // const int nx = (int)argv[1][0]-48;
-    // const int ny = (int)argv[2][0]-48;
-    // const double ht = std::stof(argv[3]);
-    // const int t_max = std::stoull(argv[4]);
-    //std::cout << t_max << '\n';
+int main(){
 
-    const int nx = 11;
-    const int ny = 11;
-    const int nt = 100;
-    const double t_end = 1.00;
-    const double Lx = 1.00; //m
-    const double Ly = 1.00; //m
+    std::ifstream input;
+    input.open("../app/input.txt");
+    int ex{};
+    input >> ex;
+    while (ex != 1)
+    {   
+        std::string get_rid_of;
+        getline(input, get_rid_of);
+        input >> ex;
+    }
+    int nx;
+    input >> nx;
+    int ny;
+    input >> ny;
+    int nt;
+    input >> nt;
+    double t_end;
+    input >> t_end;
+    double Lx; //m
+    input >> Lx;
+    double Ly; //m
+    input >> Ly;
+    double a;
+    input >> a;
+    input.close();
+
+
     const double hx = Lx/nx;
     const double hy = Ly/ny;
     const double ht = t_end/nt;
-    const double a = 0.4;
+    const double sx = a*ht/(hx*hx);
+    const double sy = a*ht/(hy*hy);
 
     VectorXd plate(nx*ny);
     SparseMatrix<double> system{nx*ny, nx*ny};
     
-    build_system_0_0_0_0(system, ht, hx, hy, a, nx*ny);
-    //std::cout << system << '\n';
-
-    for (size_t i = 0; i < nx; i++)
-    {
-        plate(5) = 500; //k
-    }
+    build_system_0_0_0_0(system, sx, sy, nx, ny);
     
+    // int middle = (ny/2)*nx + nx/2;
+    // plate(middle) = 100;
 
     SimplicialLLT<SparseMatrix<double>> solver;
     solver.compute(system);
-    //print_plate(plate, nx, ny);
 
     std::ofstream to_write;
-    to_write.open("/home/nic/GithubRepos/2d-heat/build/data0.txt", std::ofstream::out | std::ofstream::trunc);
+    to_write.open("../build/data0.txt", std::ofstream::out | std::ofstream::trunc);
     to_write << nx << " " << ny << " " << nt << '\n';
 
 
@@ -58,7 +69,6 @@ int main(int argc, char* argv[]){
             std::cout << "WRONG BOOM!\n";
             break;
         }
-        //print_plate(plate, nx, ny);
     }
     to_write.close();
     return 0;

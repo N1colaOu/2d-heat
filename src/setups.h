@@ -33,30 +33,66 @@ void write_plate(const VectorXd& plate, std::ofstream& file, int nx, int ny){
     file << '\n';
 }
 
-void build_system_0_0_0_0(SparseMatrix<double>& A, double ht, double hx, double hy, double a, int N){
+void build_system_0_0_0_0(SparseMatrix<double>& A, double sx, double sy, int nx, int ny){
 
+    const int N = nx*ny;
     std::vector<Triplet<double>> triplets;
     triplets.reserve(5*N);
     for (size_t i = 3; i < N; i++) // ll diag
     {
-        triplets.push_back(Triplet<double>(i, i - 3, -a*ht/(hy*hy)));
+        triplets.push_back(Triplet<double>(i, i - 3, -sy));
     }
     for (size_t i = 1; i < N; i++) // l diag
     {
-        triplets.push_back(Triplet<double>(i, i - 1, -a*ht/(hx*hx)));
+        triplets.push_back(Triplet<double>(i, i - 1, -sx));
     }
     for (size_t i = 0; i < N; i++) // diag
     {
-        triplets.push_back(Triplet<double>(i, i, 1 + 2*ht*a/(hx*hx) + 2*ht*a/(hy*hy)));
+        triplets.push_back(Triplet<double>(i, i, 1 + 2*sx + 2*sy));
     }
     for (size_t i = 0; i < N-1; i++) // u diag
     {
-        triplets.push_back(Triplet<double>(i, i + 1, -a*ht/(hx*hx)));
+        triplets.push_back(Triplet<double>(i, i + 1, -sx));
     }
     for (size_t i = 0; i < N-3; i++) // uu diag
     {
-        triplets.push_back(Triplet<double>(i, i + 3, -a*ht/(hy*hy)));
+        triplets.push_back(Triplet<double>(i, i + 3, -sy));
     }
+    A.setFromTriplets(triplets.begin(), triplets.end());
+    A.makeCompressed();
+}
+
+void build_system_0_0_0_0_coords(SparseMatrix<double>& A, double sx, double sy, int nx, int ny, std::vector<Triplet<double>> coords){
+    
+    const int N = nx*ny;
+    std::vector<Triplet<double>> triplets;
+    triplets.reserve(5*N);
+    for (size_t i = 3; i < N; i++) // ll diag
+    {
+        triplets.push_back(Triplet<double>(i, i - 3, -sy));
+    }
+    for (size_t i = 1; i < N; i++) // l diag
+    {
+        triplets.push_back(Triplet<double>(i, i - 1, -sx));
+    }
+    for (size_t i = 0; i < N; i++) // diag
+    {
+        triplets.push_back(Triplet<double>(i, i, 1 + 2*sx + 2*sy));
+    }
+    for (size_t i = 0; i < N-1; i++) // u diag
+    {
+        triplets.push_back(Triplet<double>(i, i + 1, -sx));
+    }
+    for (size_t i = 0; i < N-3; i++) // uu diag
+    {
+        triplets.push_back(Triplet<double>(i, i + 3, -sy));
+    }
+
+    for(auto c : coords){
+        //triplets.at(c.col, c.row)
+    }
+
+
     A.setFromTriplets(triplets.begin(), triplets.end());
     A.makeCompressed();
 }
