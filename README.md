@@ -3,6 +3,7 @@
 A compact 2D heat equation solver and visualization project.
 
 ![Heat diffusion animation](./build/animation1.gif)
+![Heat diffusion animation](./build/animation0.gif)
 
 ## Summary
 
@@ -19,6 +20,17 @@ This repository computes and visualizes 2D heat diffusion on a rectangular plate
 - `build/data0.txt` / `build/data1.txt` — precomputed simulation output files.
 
 ## How to use
+
+0. Edit `./app/input.txt` with the example block format used by `src/ex1.cpp` and `src/ex0.cpp`.
+   - Each block starts with an example selector on its own line: `0` for `ex0` or `1` for `ex1`.
+   - `ex0` reads the first matching `0` block and expects:
+     - `nx ny nt t_end Lx Ly a c_size`
+     - then `c_size` lines of `row col value`
+     - these coordinates are used to initialize `plate[row*nx + col]` with the given value.
+   - `ex1` reads the first matching `1` block and expects:
+     - `nx ny nt t_end Lx Ly a u l r d`
+     - where `u`, `l`, `r`, `d` are the top, left, right, and bottom boundary temperatures.
+   - The file can contain both blocks; `gen_data.sh` runs `ex1` then `ex0`.
 
 1. Build the C++ examples with the provided `Makefile`:
    ```bash
