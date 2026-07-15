@@ -52,7 +52,7 @@ int main(int argc, char* argv[]){
     //print_plate(plate, nx, ny);
 
     SparseMatrix<double> system{nx*ny, nx*ny};
-    build_system_L_U_R_D(system, sx, sy, nx, ny);
+    build_system_L_U_R_D_coords(system, sx, sy, nx, ny, {});
     //std::cout << system << '\n';
     UmfPackLU<SparseMatrix<double>> solver;
     solver.compute(system);

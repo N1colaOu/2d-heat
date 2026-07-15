@@ -62,7 +62,7 @@ int main(){
 
     SparseMatrix<double> system{nx*ny, nx*ny};
     
-    build_system_0_0_0_0_coords(system, sx, sy, nx, ny, coords);
+    build_system_L_U_R_D_coords(system, sx, sy, nx, ny, coords);
 
     UmfPackLU<SparseMatrix<double>> solver;
     solver.compute(system);
