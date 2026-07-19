@@ -16,7 +16,7 @@ def visualize(plates, step=1, interval=50):
     fig, ax = plt.subplots()
     vmin, vmax = plates[0].min(), plates[0].max()
     im = ax.imshow(frames[0], vmin=vmin, vmax=vmax, animated=True, cmap=colors)
-    fig.colorbar(mappable=im, ax=ax)
+    fig.colorbar(mappable=im)
     def update(frame):
         im.set_data(frame)
         return [im] 
