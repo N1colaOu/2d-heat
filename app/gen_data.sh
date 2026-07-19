@@ -1,4 +1,5 @@
 #!/bin/bash
 cd ../build
-./ex1.exe
 ./ex0.exe
+./ex1.exe
+./ex2.exe
