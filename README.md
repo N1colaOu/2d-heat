@@ -6,7 +6,7 @@ A compact 2D heat equation solver and visualization project.
 ![Heat diffusion animation](./build/animation0.gif)
 
 ## AI
-The use of generative AI extends only to the ReadMe file, Makefile and some little parts of the python script. Everything else was done and thought by me.
+The use of generative AI extends only to the ReadMe, Makefile and some little parts of the python script. Everything else was done and thought of by me.
 ## Summary
 
 This repository computes and visualizes 2D heat diffusion on a rectangular plate. Two C++ examples generate time-series data files in `./build/`, and the Python visualization script converts the result into an animated GIF.
@@ -19,7 +19,6 @@ This repository computes and visualizes 2D heat diffusion on a rectangular plate
 - `src/display.py` — reads generated data, creates a frame-by-frame animation, and saves a GIF.
 - `app/input.txt` — sample simulation parameters for both examples.
 - `app/gen_data.sh` / `app/gen_anim.sh` — helper scripts for generating data and animations.
-- `build/data0.txt` / `build/data1.txt` — precomputed simulation output files.
 
 ## How to use
 
