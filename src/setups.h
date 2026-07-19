@@ -33,7 +33,7 @@ void write_plate(const VectorXd& plate, std::ofstream& file, int nx, int ny){
     file << '\n';
 }
 
-void build_system_L_U_R_D_coords(SparseMatrix<double>& A, double sx, double sy, int nx, int ny, std::vector<std::pair<double,double>> coords){
+void build_system_const_bord_coords(SparseMatrix<double>& A, double sx, double sy, int nx, int ny, std::vector<std::pair<double,double>> coords){
 
     int N = nx*ny;
     std::vector<Triplet<double>> triplets;
