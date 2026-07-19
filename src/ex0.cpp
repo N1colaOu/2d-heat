@@ -21,12 +21,8 @@ int main(){
         getline(input, get_rid_of);
         input >> ex;
     }
-    int nx;
-    input >> nx;
-    int ny;
-    input >> ny;
-    int nt;
-    input >> nt;
+    int nx, ny, nt;
+    input >> nx >> ny >> nt;
     double t_end; //s
     input >> t_end;
     double Lx; //m
@@ -48,7 +44,7 @@ int main(){
         double val;
         input >> row >> col >> val;
         std::pair<double, double> to_add{row, col};
-        plate(row*nx + col) = val;
+        plate(row*ny + col) = val;
         coords.push_back(to_add);
     }
     input.close();
