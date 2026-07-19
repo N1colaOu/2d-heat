@@ -2,8 +2,11 @@
 
 A compact 2D heat equation solver and visualization project.
 
-![Heat diffusion animation](./build/animation1.mp4) ![Heat diffusion animation](./build/animation2.mp4)
-![Heat diffusion animation](./build/animation0.mp4)
+https://github.com/user-attachments/assets/d70af4a1-eeaf-4c31-8647-5a2c59aa2841
+
+https://github.com/user-attachments/assets/d4b356b8-17fa-4be0-8e75-1b8e6f8183de
+
+https://github.com/user-attachments/assets/5d5404f2-03da-4455-997a-67af853a01e2
 
 ## AI
 The use of generative AI extends only to the ReadMe, Makefile and some little parts of the python script. Everything else was done and thought of by me.
