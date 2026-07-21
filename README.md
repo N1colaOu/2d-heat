@@ -16,44 +16,31 @@ This repository computes and visualizes 2D heat diffusion on a rectangular plate
 
 ## What’s included
 
-- `src/ex0.cpp` — a sparse linear solve with fixed boundary conditions using Eigen's `SimplicialLLT`.
-- `src/ex1.cpp` — a more general solver for boundary conditions on all plate edges using Eigen's `UmfPackLU` support.
+- `src/ex*.cpp` — a sparse linear solve with fixed boundary conditions using Eigen's `UmfPackLU`.
 - `src/setups.h` — matrix assembly helpers, boundary setup, and plate I/O functions.
-- `src/display.py` — reads generated data, creates a frame-by-frame animation, and saves a GIF.
-- `app/input.txt` — sample simulation parameters for both examples.
-- `app/gen_data.sh` / `app/gen_anim.sh` — helper scripts for generating data and animations.
+- `src/display.py` — reads generated data, creates a frame-by-frame animation, and saves a MP4.
+- `/input.txt` — sample simulation parameters for all examples.
+- `/gen_data.sh` / `app/gen_anim.sh / Makefile` — helper scripts for generating data and animations.
 
 ## How to use
 
-0. Edit `./app/input.txt` with the example block format used by `src/ex1.cpp` and `src/ex0.cpp`.
-   - Each block starts with an example selector on its own line: `0` for `ex0` or `1` for `ex1`.
-   - `ex0` reads the first matching `0` block and expects:
-     - `nx ny nt t_end Lx Ly a c_size`
-     - then `c_size` lines of `row col value`
-     - these coordinates are used to initialize `plate[row*nx + col]` with the given value.
-   - `ex1` reads the first matching `1` block and expects:
-     - `nx ny nt t_end Lx Ly a u l r d`
-     - where `u`, `l`, `r`, `d` are the top, left, right, and bottom boundary temperatures.
-   - The file can contain both blocks; `gen_data.sh` runs `ex1` then `ex0`.
-
+0. Either edit the `input.txt` to use values you want into the 3 examples I have already setup, or write you own C++ file in `ex0.cpp`. This way you won't have to edit the other files (Makefile, display script, bash scripts) and everything should work. Use the methods provided in `setups.h`.
 1. Build the C++ examples with the provided `Makefile`:
    ```bash
    make
    ```
-   This produces `./build/ex0.exe` and `./build/ex1.exe`.
+   This produces `./build/ex*.exe`.
 2. Generate data using one of the binaries or the helper script:
-   - Run `./build/ex0.exe` to write `./build/data0.txt`.
-   - Run `./build/ex1.exe` to write `./build/data1.txt`.
-   - Or use `./app/gen_data.sh` to generate both data files from `app/input.txt`.
+   - Run `./build/ex*.exe` to write `./build/data*.txt`.
+   - Or use `gen_data.sh` to generate both data files from `input.txt`.
 3. Create the animation with the Python visualizer:
    ```bash
-   bash ./app/gen_anim.sh
+   bash gen_anim.sh
    ```
-   The script reads the selected `build/data*.txt` file and saves the result as `animation0.gif` or `animation1.gif`.
+   The script reads the selected `build/data*.txt` file and saves the result as `animation*.mp4`.
 4. View the generated animation:
-   - The main output file is `./build/animation1.gif`.
-   - Use any GIF viewer or browser to inspect the heat diffusion sequence.
+   - The main output file is `./build/animation*.mp4`.
 
 ## Output
 
-The animation at `./build/animation1.gif` shows the heat diffusion over time, using a consistent colormap for clear comparison between simulation frames.
+The animation at `./build/animation0.mp4` shows the heat diffusion over time, using a consistent colormap for clear comparison between simulation frames. It shows five constant points in the center of the plate and borders with temperature value 0. The animation `./build/animation1.mp4` shows similar animation, but with constant borders. The `./build/animation2.mp4` is the most interesting one, showing a non-square grid with 3 constant same borders, with the 4-th one being 0. It also has 3 constant points, combinig all possible features of this project into one showcase.

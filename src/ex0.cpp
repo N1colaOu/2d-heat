@@ -12,7 +12,7 @@ using namespace Eigen;
 int main(){
 
     std::ifstream input;
-    input.open("../app/input.txt");
+    input.open("../input.txt");
     int ex{};
     input >> ex;
     while (ex != 0)

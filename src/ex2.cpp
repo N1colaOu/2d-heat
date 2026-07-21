@@ -1,7 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <Eigen/SparseLU>
-#include <Eigen/SparseCholesky>  
 #include <Eigen/UmfPackSupport>
 #include <cassert>
 #include <iomanip> // for std::setw
@@ -11,9 +9,9 @@
 using namespace Eigen;
 
 
-int main(int argc, char* argv[]){
+int main(){
     std::ifstream input;
-    input.open("../app/input.txt");
+    input.open("../input.txt");
     int ex{};
     input >> ex;
     while (ex != 2)
@@ -36,13 +34,6 @@ int main(int argc, char* argv[]){
     input >> u >> l >> r >> d;
 
     
-    
-    const double hx = Lx/nrows;
-    const double hy = Ly/ncols;
-    const double ht = t_end/nt;
-    const double sx = a*ht/(hx*hx);
-    const double sy = a*ht/(hy*hy);
-    
     VectorXd plate(nrows*ncols);
     
     int c_size;
@@ -59,8 +50,13 @@ int main(int argc, char* argv[]){
         coords.push_back(to_add);
     }
     input.close();
-
-
+    
+    
+    const double hx = Lx/nrows;
+    const double hy = Ly/ncols;
+    const double ht = t_end/nt;
+    const double sx = a*ht/(hx*hx);
+    const double sy = a*ht/(hy*hy);
 
     set_plate_borders(plate, nrows, ncols, l, u, r, d);
     //print_plate(plate, nrows, ncols);

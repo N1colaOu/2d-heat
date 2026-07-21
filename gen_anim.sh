@@ -1,4 +1,4 @@
 #!/bin/bash
-cd ../src
+cd ./src
 python display.py
 mv *.mp4 ../build/

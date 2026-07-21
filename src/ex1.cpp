@@ -1,7 +1,5 @@
 #include <iostream>
-#include <vector>
-#include <Eigen/SparseLU>
-#include <Eigen/SparseCholesky>  
+#include <vector> 
 #include <Eigen/UmfPackSupport>
 #include <cassert>
 #include <iomanip> // for std::setw
@@ -11,9 +9,9 @@
 using namespace Eigen;
 
 
-int main(int argc, char* argv[]){
+int main(){
     std::ifstream input;
-    input.open("../app/input.txt");
+    input.open("../input.txt");
     int ex{};
     input >> ex;
     while (ex != 1)
@@ -23,8 +21,8 @@ int main(int argc, char* argv[]){
         input >> ex;
     }
     
-    int nx, ny, nt;
-    input >> nx >> ny >> nt;
+    int nrows, ncols, nt;
+    input >> nrows >> ncols >> nt;
     double t_end;
     input >> t_end;
     double Lx, Ly; //m
@@ -38,21 +36,21 @@ int main(int argc, char* argv[]){
     input.close();
 
     
-    const double hx = Lx/nx;
-    const double hy = Ly/ny;
+    const double hx = Lx/nrows;
+    const double hy = Ly/ncols;
     const double ht = t_end/nt;
     const double sx = a*ht/(hx*hx);
     const double sy = a*ht/(hy*hy);
 
 
-    VectorXd plate(nx*ny);
+    VectorXd plate(nrows*ncols);
 
 
-    set_plate_borders(plate, nx, ny, l, u, r, d);
-    //print_plate(plate, nx, ny);
+    set_plate_borders(plate, nrows, ncols, l, u, r, d);
+    //print_plate(plate, nrows, ncols);
 
-    SparseMatrix<double> system{nx*ny, nx*ny};
-    build_system_const_bord_coords(system, sx, sy, nx, ny, {});
+    SparseMatrix<double> system{nrows*ncols, nrows*ncols};
+    build_system_const_bord_coords(system, sx, sy, nrows, ncols, {});
     //std::cout << system << '\n';
     UmfPackLU<SparseMatrix<double>> solver;
     solver.compute(system);
@@ -66,13 +64,13 @@ int main(int argc, char* argv[]){
     else{
         std::ofstream to_write;
         to_write.open("../build/data1.txt", std::ofstream::out | std::ofstream::trunc);
-        to_write << nx << " " << ny << " " << nt << '\n';
+        to_write << nrows << " " << ncols << " " << nt << '\n';
         for (size_t i = 0; i < nt; i++)
         {
-            write_plate(plate, to_write, nx, ny);
+            write_plate(plate, to_write, nrows, ncols);
             VectorXd new_plate = solver.solve(plate);
             plate = new_plate;
-            //print_plate(plate, nx, ny);
+            //print_plate(plate, nrows, ncols);
         }
         to_write.close();
     }
