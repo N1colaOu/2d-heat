@@ -2,11 +2,14 @@
 
 A compact 2D heat equation solver and visualization project.
 
-https://github.com/user-attachments/assets/d70af4a1-eeaf-4c31-8647-5a2c59aa2841
 
-https://github.com/user-attachments/assets/d4b356b8-17fa-4be0-8e75-1b8e6f8183de
+https://github.com/user-attachments/assets/94b02977-e901-40d9-9907-6669733bc874
 
-https://github.com/user-attachments/assets/5d5404f2-03da-4455-997a-67af853a01e2
+https://github.com/user-attachments/assets/cdd6cda0-b072-4b85-988a-e6c810da08f7
+
+https://github.com/user-attachments/assets/7a99b594-d6b5-4a44-bbe5-ee58698ea7db
+
+
 
 ## AI
 The use of generative AI extends only to the ReadMe, Makefile and some little parts of the python script. Everything else was done and thought of by me.
