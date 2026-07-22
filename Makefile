@@ -16,7 +16,7 @@ SOURCES   = $(wildcard $(SRC_DIR)/*.cpp)
 TARGETS   = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.exe, $(SOURCES))
 
 # Data files that should exist in the build directory
-DATA_FILES = $(BUILD_DIR)/data0.txt $(BUILD_DIR)/data1.txt $(BUILD_DIR)/data2.txt
+DATA_FILES = $(BUILD_DIR)/data0.txt $(BUILD_DIR)/data1.txt $(BUILD_DIR)/data2.txt $(BUILD_DIR)/data3.txt
 
 # Default target: first ensure data files exist, then build all executables
 all: data $(TARGETS)

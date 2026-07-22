@@ -32,8 +32,8 @@ def visualize(plates, interval=50):
                                   repeat_delay=1000)
     return ani
 
-i = int(input("Which Example to load? (0, 1, 2): "))
-if 0 <= i <= 2:
+i = int(input("Which Example to load? (0, 1, 2, 3): "))
+if 0 <= i <= 3:
     data = read_plate(f"/home/nic/GithubRepos/2d-heat/build/data{i}.txt")
     ani = visualize(data, interval=50)
     ani.save(f"animation{i}.mp4", dpi=200, writer='ffmpeg')

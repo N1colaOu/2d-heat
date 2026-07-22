@@ -43,4 +43,9 @@ This repository computes and visualizes 2D heat diffusion on a rectangular plate
 
 ## Output
 
-The animation at `./build/animation0.mp4` shows the heat diffusion over time, using a consistent colormap for clear comparison between simulation frames. It shows five constant points in the center of the plate and borders with temperature value 0. The animation `./build/animation1.mp4` shows similar animation, but with constant borders. The `./build/animation2.mp4` is the most interesting one, showing a non-square grid with 3 constant same borders, with the 4-th one being 0. It also has 3 constant points, combinig all possible features of this project into one showcase.
+The animation at `./build/animation3.mp4` shows an animation with no heat loss and 5 constant heat sources in the center. The animation `./build/animation1.mp4` shows similar animation, but with constant borders. The `./build/animation2.mp4` is the most interesting one, showing a non-square grid with 3 constant same borders, with the 4-th one being 0. It also has 3 constant points, combinig all possible features of this project into one showcase.
+
+### Sources
+https://doi.org/10.1016/j.ijheatmasstransfer.2025.126780
+https://www-udc.ig.utexas.edu/external/becker/teaching/557/problem_sets/problem_set_fd_2dheat.pdf
+https://upcommons.upc.edu/server/api/core/bitstreams/84c0b52e-8ade-4167-83b9-c2ec3a3c7ec7/content
